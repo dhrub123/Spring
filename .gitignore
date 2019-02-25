@@ -1,0 +1,16 @@
+# Java files             #
+##########################
+target/
+
+# Eclipse files          #
+##########################
+.settings
+.classpath
+.project
+.externalToolBuilders
+.springBeans
+.factorypath
+bin
+
+*.tmp
+~*
