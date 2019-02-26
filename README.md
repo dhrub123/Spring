@@ -1,6 +1,6 @@
 ### Spring Boot
 
-https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm
+https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm<br />
 https://www.tutorialspoint.com/spring/index.htm
 
 Spring boot is used to create microservices.
@@ -35,7 +35,7 @@ All of them follow the naming pattern spring-boot-starter-data-*.
 ```
 
 To create a rest endpoint, we have to annotate class with **@RestController**
-and method with **@RequestMapping(value = "/")**.Value will be taking the path.
+and method with **@RequestMapping(value = "/")**. Value will be taking the path.
 
 To deploy the spring boot application as a war file, few things need to be done.
 + The main class must extend **SpringBootServletInitializer** and 
