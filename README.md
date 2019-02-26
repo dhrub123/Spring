@@ -20,6 +20,7 @@ All of them follow the naming pattern spring-boot-starter-data-*.
 
 |Name|Purpose|Dependency|
 |----|-------|----------|
+|Spring Boot Starter Parent|----|spring-boot-starter-parent|
 |Spring Boot Starter Actuator|Monitor app|spring-boot-starter-actuator|
 |Spring Boot Starter Security |Spring security|spring-boot-starter-security |
 |Spring Boot Starter Web |To write rest endpoints|spring-boot-starter-web |
@@ -33,3 +34,38 @@ All of them follow the naming pattern spring-boot-starter-data-*.
 </dependency>
 ```
 
+To create a rest endpoint, we have to annotate class with **@RestController**
+and method with **@RequestMapping(value = "/")**.Value will be taking the path.
+
+To deploy the spring boot application as a war file, few things need to be done.
++ The main class must extend **SpringBootServletInitializer** and 
+  override configure() method
++ In maven we will need to define the start class
++ we will need to update packaging to war
+
+```maven
+<properties>
+   <start-class>com.dhruba.DemoApplication</start-class>
+</properties>
+
+<packaging>war</packaging>
+```
+
+```java
+SpringBootApplication
+@RestController
+public class DemoApplication  extends SpringBootServletInitializer {
+   @Override
+   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+      return application.sources(DemoApplication.class);
+   }
+   public static void main(String[] args) {
+      SpringApplication.run(DemoApplication.class, args);
+   }
+   
+   @RequestMapping(value = "/")
+   public String hello() {
+      return "Hello World from Tomcat";
+   }
+}
+```
