@@ -155,3 +155,28 @@ Then when executing program, the active profile is passed as a command line argu
 ```java
 java -jar demo.jar --spring.profiles.active=dev
 ```
+
+#### Logging
+
+Default log levels are INFO, ERROR and WARN
+To enable debug, we have to pass the following while running app.
+```java
+java -jar demo.jar --debug
+```
+We can also do debug=true in properties file.
+The output file can be configured as below
+```java
+logging.file = /var/tmp/demoservice.log
+or 
+logging.path = /var/tmp/(In this case name of log file will be spring.log)
+```
+The log files automatically rotates after 10MB.
+Logging can also be configured in a logback.xml file and kept in classpath.
+
+Then logs can be inserted in application by means of sl4j logger.
+```java
+private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
+logger.info("This is info");
+logger.warn("This is a warning");
+logger.error("This is an error");
+```

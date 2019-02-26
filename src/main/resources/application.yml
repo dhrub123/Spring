@@ -3,6 +3,8 @@ spring:
       name: demoservice
 server:
    port: 8080
+logging:
+   file: /logs/demoservice.log
 
 ---
 spring:
@@ -11,7 +13,8 @@ spring:
      name: demoservice
 server:
    port: 9090
-
+logging:
+   file: /logs/demoservice.log
 ---
 spring:
    profiles: dev
@@ -19,3 +22,5 @@ spring:
      name: demoservice
 server:
    port: 7070
+logging:
+   file: /logs/demoservice.log
