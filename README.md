@@ -69,3 +69,37 @@ public class DemoApplication  extends SpringBootServletInitializer {
    }
 }
 ```
+
+####Dependency Injection and autowiring in Spring Boot
+
+We create beans like below.
+```java
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+```
+
+Then we autowire them.
+```java
+	@Autowired
+	RestTemplate restTemplate;
+```
+
+####Spring runners
+
+Spring Boot Runners, ApplicationRunner and CommandLineRunner lets us execute code 
+immediately after the spring boot application has started. We implement the ApplicationRunner
+or the CommandLineRunner interface adn override the run method for this.
+
+```java
+   @Override
+   public void run(ApplicationArguments arg0) throws Exception {
+      System.out.println("Hello World from Application Runner");
+   }
+   
+   @Override
+   public void run(String... arg0) throws Exception {
+      System.out.println("Hello world from Command Line Runner");
+   }
+```
