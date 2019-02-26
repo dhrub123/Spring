@@ -70,7 +70,7 @@ public class DemoApplication  extends SpringBootServletInitializer {
 }
 ```
 
-####Dependency Injection and autowiring in Spring Boot
+#### Dependency Injection and autowiring in Spring Boot
 
 We create beans like below.
 ```java
@@ -86,7 +86,7 @@ Then we autowire them.
 	RestTemplate restTemplate;
 ```
 
-####Spring runners
+#### Spring runners
 
 Spring Boot Runners, ApplicationRunner and CommandLineRunner lets us execute code 
 immediately after the spring boot application has started. We implement the ApplicationRunner
@@ -102,4 +102,56 @@ or the CommandLineRunner interface adn override the run method for this.
    public void run(String... arg0) throws Exception {
       System.out.println("Hello world from Command Line Runner");
    }
+```
+
+### Application Properties
+
+#### Command Line Properties
+Pass Command line arguments like 
+```java
+java -jar demo.jar --server.port=9090
+```
+
+#### Properties File
+Keep application.properties or application.yml under src/main/resources 
+```java
+spring:
+   application:
+      name: demoservice
+server:
+   port: 9090
+```
+#### Externalized Properties
+If we want to keep properties in a different location apart from src/main/resources 
+we can use -Dspring.config.location = C:\application.properties
+
+#### Reading properties
+The @Value annotation is used.
+```java
+@Value("${spring.application.name}")
+```
+
+#### Spring profiles
+Spring profiles can be used to read property files of different environments.
+The property files are named like application.properties, application-dev.properties and application-prod.properties
+For yml, one file is sufficient.
+The settings for different profiles are separated by a delimter ---.
+```java
+spring:
+   profiles: dev
+   application:
+     name: demoservice
+server:
+   port: 9090
+---
+spring:
+   profiles: dev
+   application:
+     name: demoservice
+server:
+   port: 7070
+```
+Then when executing program, the active profile is passed as a command line argument.
+```java
+java -jar demo.jar --spring.profiles.active=dev
 ```
