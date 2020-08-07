@@ -179,4 +179,7 @@ private static final Logger logger = LoggerFactory.getLogger(DemoApplication.cla
 logger.info("This is info");
 logger.warn("This is a warning");
 logger.error("This is an error");
+
+#### Loading properties
+http://zetcode.com/springboot/configurationproperties/
 ```
