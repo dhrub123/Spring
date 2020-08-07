@@ -1,6 +1,14 @@
 spring:
    application:
       name: demoservice
+demoservice:
+   user:
+     details:
+       role: user
+       credential:
+         dhruba: magora
+         dayita: aroit
+         mommy: daddy
 server:
    port: 8080
 logging:

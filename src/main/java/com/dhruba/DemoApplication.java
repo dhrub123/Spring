@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.dhruba.propertyTutorial.UserDetailFromProperties;
+
 @SpringBootApplication
 @RestController
 
@@ -20,6 +22,9 @@ public class DemoApplication{
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@Autowired
+	UserDetailFromProperties userDetailFromProperties;
+	
 	@Value("${spring.application.name}")
 	private String name;
 	
@@ -28,6 +33,16 @@ public class DemoApplication{
 		logger.warn("This is a warning");
 		logger.error("This is an error");
 		SpringApplication.run(DemoApplication.class, args);
+		
+	}
+	
+	@RequestMapping(value = "/properties")
+	public String loadProperties() {
+		userDetailFromProperties.getRole();
+		userDetailFromProperties.getCredential().entrySet().stream().forEach(entry -> {
+			System.out.println("User = " + entry.getKey() + " Password = " + entry.getValue());
+		});
+		return userDetailFromProperties.toString();
 	}
 	
 	@RequestMapping(value = "/")
