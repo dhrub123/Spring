@@ -1,4 +1,4 @@
-package com.dhruba.propertyTutorial;
+package com.dhruba.springboot.property;
 
 import java.util.Map;
 

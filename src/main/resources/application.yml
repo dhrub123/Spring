@@ -1,6 +1,22 @@
 spring:
-   application:
+  application:
       name: demoservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/conference_app
+    username: postgres
+    password: Welcome
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true  
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+      show-sql: true
+  
+
 demoservice:
    user:
      details:
@@ -9,11 +25,12 @@ demoservice:
          dhruba: magora
          dayita: aroit
          mommy: daddy
+
 server:
    port: 8080
 logging:
    file: /logs/demoservice.log
-
+   
 ---
 spring:
    profiles: dev
@@ -25,7 +42,7 @@ logging:
    file: /logs/demoservice.log
 ---
 spring:
-   profiles: dev
+   profiles: prod
    application:
      name: demoservice
 server:
