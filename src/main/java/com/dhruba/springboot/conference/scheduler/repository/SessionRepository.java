@@ -1,8 +1,8 @@
-package com.conference.scheduler.repository;
+package com.dhruba.springboot.conference.scheduler.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.conference.scheduler.models.Session;
+import com.dhruba.springboot.conference.scheduler.models.Session;
 
 /**
  * @author dhruba

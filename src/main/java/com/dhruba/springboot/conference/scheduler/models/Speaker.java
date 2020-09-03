@@ -1,4 +1,4 @@
-package com.conference.scheduler.models;
+package com.dhruba.springboot.conference.scheduler.models;
 
 import java.util.List;
 
@@ -11,11 +11,15 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author dhruba
  *
  */
 @Entity(name = "speakers")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) // To avoid serialization issues
 public class Speaker {
 
 	@Id
@@ -33,6 +37,7 @@ public class Speaker {
 	private byte[] speaker_photo;
 	
 	@ManyToMany(mappedBy= "speakers")
+	@JsonIgnore// To Avoid back Serialization and Redundancy
 	private List<Session> sessions;
 
 	public Speaker() {

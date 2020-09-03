@@ -1,4 +1,4 @@
-package com.conference.scheduler.models;
+package com.dhruba.springboot.conference.scheduler.models;
 
 import java.util.List;
 
@@ -10,11 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author dhruba
  *This class will represent a single row of sessions table
  */
 @Entity(name = "sessions")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Session {
 
 	@Id
