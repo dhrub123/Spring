@@ -42,4 +42,13 @@ public class SessionRepository {
 	public List<Session> list() {
 		return sessionJpaRepository.findAll();
 	}
+	
+	public List<Session> getSessionsThatHaveName(String name){
+		/* Old Implementation
+		List<Session> sessions = entityManager
+				.createQuery("select s from Session s where s.sessionName like :name")
+				.setParameter("name", "%" + name + "%").getResultList();
+		return sessions;*/
+		return sessionJpaRepository.findBySessionNameContains(name);
+	}
 }

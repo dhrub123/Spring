@@ -1,8 +1,10 @@
 package com.dhruba.springboot.conference.scheduler.models;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,33 @@ class TicketPriceTest {
 		TicketPrice toBeDeletedTicketPrice = ticketPriceRespository.getOne(ticketPrice.getTicketPriceId());
 		ticketPriceRespository.deleteById(toBeDeletedTicketPrice.getTicketPriceId());
 		
+	}
+	
+	@Test
+	public void testBoolean() {
+		List<TicketType> ticketTypes = ticketTypeRepository.findByIncludesWorkshopTrue();
+		assertTrue(ticketTypes.size() > 0);
+		
+		ticketTypes = ticketTypeRepository.findByIncludesWorkshopFalse();
+		assertTrue(ticketTypes.size() > 0);
+	}
+	
+	@Test
+	public void testQueryAnnotation() {
+		List<TicketPrice> tickets = ticketPriceRespository.getTicketsUnderPriceWithWorkshops(BigDecimal.valueOf(1000));
+		assertTrue(tickets.size() > 0);
+	}
+	
+	@Test
+	public void testNamedQuery() {
+		List<TicketPrice> tickets = ticketPriceRespository.namedFindTicketsByPricingCategoryName("Regular");
+		assertTrue(tickets.size() > 0);
+	}
+	
+	@Test
+	public void testNativeNamedQuery() {
+		List<TicketPrice> tickets = ticketPriceRespository.nativeFindTicketsByCategoryWithWorkshop("Regular");
+		assertTrue(tickets.size() > 0);
 	}
 
 }

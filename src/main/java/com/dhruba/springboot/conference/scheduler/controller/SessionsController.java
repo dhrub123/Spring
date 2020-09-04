@@ -1,6 +1,5 @@
 package com.dhruba.springboot.conference.scheduler.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +23,15 @@ public class SessionsController {
 
 	@Autowired
 	private SessionRepository sessionRepository;
-	
+
 	/**
-	 * Now URL can be http://localhost:5000/api/v1/sessions?id=40
-	 * or http://localhost:5000/api/v1/sessions
+	 * Now URL can be http://localhost:5000/api/v1/sessions?name=Java or
+	 * http://localhost:5000/api/v1/sessions
 	 */
 	@GetMapping
-	public List<Session> list(@RequestParam(required = false) Long id) {
-		if (id != null) {
-			List<Session> sessions = new ArrayList<Session>();
-			sessions.add(sessionRepository.find(id));
-			return sessions;
+	public List<Session> list(@RequestParam(required = false) String name) {
+		if (name != null) {
+			return sessionRepository.getSessionsThatHaveName(name);
 		} else {
 			return sessionRepository.list();
 		}
