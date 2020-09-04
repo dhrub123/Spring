@@ -1,14 +1,45 @@
 package com.dhruba.springboot.conference.scheduler.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.dhruba.springboot.conference.scheduler.models.Session;
-
 /**
- * @author dhruba
- * We have to create an interface and extend JpaRepository
- * The 1stArgument is the entity for which the respository is being created - in this case session
- * The 2ndArgument is the data type of the primary key - in this case private Long session_id 
+ * 
+ * Employing proxy pattern to redirect to new JPA repository
+ * We need @Repository annotation
+ * and an injection of the JPARepository
+ *
  */
-public interface SessionRepository extends JpaRepository<Session, Long> {
+@Repository
+public class SessionRepository {
+
+	@Autowired
+	private SessionJpaRepository sessionJpaRepository;
+
+	public Session create(Session session) {
+		return sessionJpaRepository.saveAndFlush(session);
+	}
+
+	public Session update(Long id, Session session) {
+		Session sessionToUpdate = sessionJpaRepository.getOne(id);
+		BeanUtils.copyProperties(session, sessionToUpdate, "session_id");
+		return sessionJpaRepository.saveAndFlush(sessionToUpdate);
+	}
+
+	public void delete(Long id) {
+		Session sessionToDelete = sessionJpaRepository.getOne(id);
+		sessionJpaRepository.delete(sessionToDelete);
+	}
+
+	public Session find(Long id) {
+		return sessionJpaRepository.getOne(id);
+	}
+
+	public List<Session> list() {
+		return sessionJpaRepository.findAll();
+	}
 }

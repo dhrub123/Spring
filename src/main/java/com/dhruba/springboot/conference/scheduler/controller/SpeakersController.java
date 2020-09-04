@@ -24,28 +24,83 @@ public class SpeakersController {
 	@Autowired
 	private SpeakerRepository speakerRepository;
 
+	/**
+	 * Read Operation - Read All
+	 * HttpVerb - GET
+	 * JPA repository finds all records in database and 
+	 * Spring MVC returns them to JACKSON which marshals them
+	 * as a JSON object.
+	 * 
+	 * @Getmapping is the short hand of RequestMapping which has
+	 * RequestMethod as GET
+	 */
 	@GetMapping
 	public List<Speaker> list() {
 		return speakerRepository.findAll();
 	}
 
+	/**
+	 * Read Operation - Read by a specific id
+	 * HttpVerb - GET
+	 * JPA repository finds all records in database and 
+	 * Spring MVC returns them to JACKSON which marshals them
+	 * as a JSON object.
+	 * 
+	 * @Getmapping is the short hand of RequestMapping which has
+	 * RequestMethod as GET
+	 * 
+	 * The @PathVariable is used to connect value passed in URI
+	 * in a Long variable called id
+	 * 
+	 * The new URI becomes /api/v1/sessions/3
+	 */
 	@GetMapping
 	@RequestMapping("{id}")
 	public Speaker get(@PathVariable Long id) {
 		return speakerRepository.getOne(id);
 	}
 
+	/**
+	 * Create Operation
+	 * HttpVerb - POST
+	 * 
+	 * Spring MVC is taking a JSON request payload and
+	 * marshaling it to a session object through @RequestBody 
+	 * 
+	 * @Postmapping is the short hand of RequestMapping which has
+	 * RequestMethod as POST
+	 * 
+	 * @ResponseStatus(HttpStatus.CREATED) is used to modify
+	 * the response code to 201 on success which is 200 
+	 * if nothing is mentioned
+	 * 
+	 * saveAndFlush() saves and commits as one operation
+	 * save() does not commit
+	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Speaker create(@RequestBody final Speaker speaker) {
 		return speakerRepository.saveAndFlush(speaker);
 	}
 
+	/**
+	 * 
+	 * Delete operation
+	 * HttpVerb - DELETE
+	 * deleteById() does not delete child records, cascading is needed for that
+	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
 		speakerRepository.deleteById(id);
 	}
 
+	/**
+	 * Update Operation
+	 * HttpVerb - PUT for update of whole object, PATCH - for specific fields update
+	 * 
+	 * The 3rd Argument in BeanUtils.copyProperties is foe exclusion of specific field
+	 * Here session_id is excluded since it is primary key 
+	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker) {
 		Speaker exisitingSpeaker = speakerRepository.getOne(id);

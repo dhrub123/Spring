@@ -1,10 +1,11 @@
-package com.dhruba.springboot.config;
+package com.dhruba.springboot.conference.scheduler.config;
 
 import javax.sql.DataSource;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class PersistenceConfiguration {
@@ -26,5 +27,15 @@ public class PersistenceConfiguration {
 		builder.username("postgres");
 		builder.password("Welcome");
 		return builder.build();
+	}*/
+	
+	/*@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource datasource = new DriverManagerDataSource();
+		datasource.setDriverClassName("org.postgresql.Driver");
+		datasource.setUrl("jdbc:postgresql://localhost:5432/conference_app");
+		datasource.setUsername("postgres");
+		datasource.setPassword("Welcome");
+		return datasource;
 	}*/
 }

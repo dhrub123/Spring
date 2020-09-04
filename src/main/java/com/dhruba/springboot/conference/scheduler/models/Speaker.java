@@ -19,30 +19,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity(name = "speakers")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) // To avoid serialization issues
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // To avoid serialization issues
 public class Speaker {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long speaker_id;
-	
+
 	private String first_name;
 	private String last_name;
 	private String title;
 	private String company;
 	private String speaker_bio;
-	
+
 	@Lob
-	@Type(type="org.hibernate.type.BinaryType")
+	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] speaker_photo;
-	
-	@ManyToMany(mappedBy= "speakers")
-	@JsonIgnore// To Avoid back Serialization and Redundancy
+
+	@ManyToMany(mappedBy = "speakers")
+	@JsonIgnore // To Avoid back Serialization and Redundancy
 	private List<Session> sessions;
 
 	public Speaker() {
 	}
-	
+
 	public byte[] getSpeaker_photo() {
 		return speaker_photo;
 	}
@@ -97,6 +97,14 @@ public class Speaker {
 
 	public void setSpeaker_bio(String speaker_bio) {
 		this.speaker_bio = speaker_bio;
+	}
+
+	public List<Session> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
 	}
 
 }
