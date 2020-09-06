@@ -5,6 +5,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/conference_app  #replace with ${DB_URL}  if running from cloud
     username: postgres #comment if deploying in heroku 
     password: Welcome #comment if deploying in heroku 
+  data:
+    rest:
+      base-path: /api
   jpa:
     properties:
       hibernate:
@@ -33,7 +36,19 @@ server:
    port: 8080
 logging:
    file: /logs/demoservice.log
-   
+
+#in this case loggers will not be available even if it is exposed
+management:
+  endpoint:
+    health:
+      show-details: always
+    loggers:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: beans,metrics,info,health,loggers,readiness # '*'
+           
 ---
 spring:
    profiles: dev

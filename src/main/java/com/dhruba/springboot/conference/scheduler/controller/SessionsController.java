@@ -17,10 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dhruba.springboot.conference.scheduler.models.Session;
 import com.dhruba.springboot.conference.scheduler.repository.SessionRepository;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+
 @RestController
 @RequestMapping("/api/v1/sessions")
 public class SessionsController {
 
+	/* Metric related code below
+
+	private Timer timer;
+
+	public SessionsController(MeterRegistry registry) {
+		timer = registry.timer("long.running.op.timer");
+	}
+
+	// Then in long running method add following code
+	public void longRunningMethod() {
+		timer.record(() -> {
+			// long running opearation code here
+		});
+	}
+
+	// Metric related code ends */
+	
 	@Autowired
 	private SessionRepository sessionRepository;
 
